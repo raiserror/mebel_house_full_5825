@@ -1,0 +1,12 @@
+#python
+myenv/
+__pycache__/
+.pylintrc
+
+#ide
+.vscode
+.idea
+
+#django
+db.sqlite3
+media/
