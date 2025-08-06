@@ -1,0 +1,190 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block style_css %}
+    <link rel="stylesheet" href="{% static "deps/css/goods/goods_catalog.css" %}">
+{% endblock style_css %}
+{% block content %}
+    <!-- Main Content -->
+    <main class="py-4">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Filters -->
+                <div class="col-lg-3 mb-4">
+                    <div class="filter-card bg-white p-4">
+                        <h4 class="mb-4"><i class="bi bi-funnel me-2"></i>Фильтры</h4>
+                        
+                        <form action="" method="get">
+                            <div class="mb-4">
+                                <h5 class="mb-3">Категории</h5>
+                                <div class="list-group">
+                                    <a href="../goods/catalog.html" class="list-group-item list-group-item-action active">
+                                        Все товары
+                                    </a>
+                                    <a href="../goods/catalog.html" class="list-group-item list-group-item-action">
+                                        Кухня
+                                    </a>
+                                    <a href="../goods/catalog.html" class="list-group-item list-group-item-action">
+                                        Спальня
+                                    </a>
+                                    <a href="../goods/catalog.html" class="list-group-item list-group-item-action">
+                                        Гостиная
+                                    </a>
+                                    <a href="../goods/catalog.html" class="list-group-item list-group-item-action">
+                                        Офис
+                                    </a>
+                                    <a href="../goods/catalog.html" class="list-group-item list-group-item-action">
+                                        Фурнитура
+                                    </a>
+                                    <a href="../goods/catalog.html" class="list-group-item list-group-item-action">
+                                        Декор
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="on_sale" id="onSaleCheck" value="on">
+                                    <label class="form-check-label" for="onSaleCheck">
+                                        Товары со скидкой
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h5 class="mb-3">Сортировка</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="order_by" id="sortDefault" value="default" checked>
+                                    <label class="form-check-label" for="sortDefault">
+                                        По умолчанию
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="order_by" id="sortPriceAsc" value="price">
+                                    <label class="form-check-label" for="sortPriceAsc">
+                                        По возрастанию цены
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="order_by" id="sortPriceDesc" value="-price">
+                                    <label class="form-check-label" for="sortPriceDesc">
+                                        По убыванию цены
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-dark w-100">
+                                <i class="bi bi-check-circle me-2"></i>Применить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Product Grid -->
+                <div class="col-lg-9">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                        <!-- Product Card 1 -->
+                        {% for product in goods %}
+                            <div class="col">
+                                <div class="product-card h-100 bg-white d-flex flex-column"> 
+                                    <div>
+                                        <img src="{% static product.image %}" class="card-img-top" alt="...">
+                                        {% comment %} <span class="badge badge-sale">-10%</span> {% endcomment %}
+                                    </div>
+                                    <div class="card-body d-flex flex-column" style="padding: 20px;">
+                                        <div> 
+                                            <h5 class="card-title text-muted text-truncate mb-2">{{ product.name }}</h5>
+                                            <p class="card-text text-muted text-truncate mb-3">
+                                                {{ product.description }}
+                                            </p>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="d-flex justify-content-between align-items-end">
+                                                <div>
+                                                    {% comment %} <span class="price-old"><s>55.00 $</s></span> {% endcomment %}
+                                                    <span class="price-new d-block">{{ product.price }} $</span>
+                                                </div>
+                                                <button class="btn btn-cart btn-dark">
+                                                    <i class="bi bi-cart-plus fs-5"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation" class="mt-5">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Cart Button -->
+        <a href="../carts/cart.html" class="fixed-cart-btn btn btn-dark">
+            <i class="bi bi-cart3 fs-4"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                1
+            </span>
+        </a>
+    </main>
+{% endblock content %}
+
+{% block scripts %}
+  <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add to cart functionality
+        document.querySelectorAll('.btn-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get product info
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.card-title').textContent;
+                const productPrice = productCard.querySelector('.price-new').textContent;
+                
+                // Show success message
+                const toast = document.createElement('div');
+                toast.className = 'position-fixed bottom-0 end-0 p-3';
+                toast.innerHTML = `
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Добавлено в корзину</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            ${productName} добавлен в вашу корзину за ${productPrice}
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // Remove toast after 3 seconds
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+                
+                // Here you would normally send the data to your backend
+                console.log('Added to cart:', productName, productPrice);
+            });
+        });
+    </script>
+{% endblock scripts %}
