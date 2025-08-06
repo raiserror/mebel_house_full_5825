@@ -1,11 +1,160 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <p>Page content</p>
-</body>
-</html>
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block style_css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+{% endblock style_css %}
+{% block content %}
+    <!-- Герой-секция -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Добро пожаловать в Mebel House</h1>
+            <p class="lead mb-5">Создайте уют в вашем доме с нашей эксклюзивной мебелью</p>
+            <a href="goods/catalog.html" class="btn btn-light btn-lg px-4 me-2">
+                <i class="bi bi-shop me-2"></i>В каталог
+            </a>
+            <a href="#" class="btn btn-outline-light btn-lg px-4">
+                <i class="bi bi-star me-2"></i>Новинки
+            </a>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <main class="py-4">
+        <div class="container">
+            <!-- Кнопки каталога и корзины -->
+            <div class="catalog-btn">
+                <div class="dropdown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-grid-fill me-1"></i>Каталог
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-collection me-2"></i>Все товары</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-cup-hot me-2"></i>Кухня</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-brightness-high me-2"></i>Спальня</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-house-door me-2"></i>Гостиная</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-briefcase me-2"></i>Офис</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-hammer me-2"></i>Фурнитура</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-flower1 me-2"></i>Декор</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cart-btn ms-3">  <!-- Добавляем отступ слева (margin-start) -->
+                <button type="button" 
+                        class="btn btn-dark position-relative" 
+                        onclick="window.location.href='carts/cart.html'"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#cartModal">
+                    <i class="bi bi-cart3"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-badge">
+                        1
+                    </span>
+                </button>
+            </div>
+            
+            <!-- Преимущества -->
+            <div class="row text-center mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставим ваш заказ в кратчайшие сроки по всей стране</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h3>Гарантия качества</h3>
+                    <p>Все товары проходят строгий контроль качества</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-currency-exchange"></i>
+                    </div>
+                    <h3>Гибкая оплата</h3>
+                    <p>Различные способы оплаты, включая рассрочку</p>
+                </div>
+            </div>
+            
+            <!-- Популярные товары -->
+            <h2 class="text-center mb-4"><i class="bi bi-star-fill me-2"></i>Популярные товары</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Диван">
+                        <div class="card-body">
+                            <h5 class="card-title">Уютный диван "Комфорт"</h5>
+                            <p class="card-text text-muted">Идеальное решение для вашей гостиной</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 mb-0">299.00 $</span>
+                                <button class="btn btn-sm btn-dark">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" class="card-img-top" alt="Трон">
+                        <div class="card-body">
+                            <h5 class="card-title">Королевский трон "Мини"</h5>
+                            <p class="card-text text-muted">Только ценитель прекрасного увидит в этом троне свою душу</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 mb-0">120.00 $</span>
+                                <button class="btn btn-sm btn-dark">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" class="card-img-top" alt="Стул">
+                        <div class="card-body">
+                            <h5 class="card-title">Уютный стул</h5>
+                            <p class="card-text text-muted">Приятные оттенки делают делают уютнее место в котором он находится.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 mb-0">32.00 $</span>
+                                <button class="btn btn-sm btn-dark">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+
+{% block scripts %}
+  <!-- Скрипты -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Инициализация модального окна корзины
+        const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+        
+        // Обработчик для кнопок увеличения/уменьшения количества
+        document.querySelectorAll('.increment, .decrement').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('.number');
+                let value = parseInt(input.value);
+                
+                if (this.classList.contains('increment')) {
+                    value++;
+                } else if (value > 1) {
+                    value--;
+                }
+                
+                input.value = value;
+                // Здесь можно добавить логику обновления суммы
+            });
+        });
+        
+        // Обновление количества товаров в корзине (пример)
+        function updateCartCount(count) {
+            document.getElementById('cart-badge').textContent = count;
+        }
+        
+        // Пример: установить количество товаров в корзине
+        updateCartCount(3);
+    </script>
+{% endblock scripts %}

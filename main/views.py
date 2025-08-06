@@ -3,7 +3,15 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request, 'main/index.html')
+    context = {
+        'title': 'Home - Главная',
+        'content': 'Главная страница магазина - Mebel House'
+    }
+    return render(request, 'main/index.html', context)
 
 def about(request):
-    return HttpResponse('About page')
+    context = {
+        'title': 'Home - О нас',
+        'content': 'Mebel House - О нас',
+    }
+    return render(request, 'main/about.html', context)
