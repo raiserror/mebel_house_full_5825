@@ -1,14 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import get_list_or_404, render
 from django.template import context
 from .models import Categories
 from goods.models import Products
+from django.core.paginator import Paginator
 
 # Create your views here.
-def catalog(request, category_slug):
+def catalog(request, category_slug=None):
+    
+    page = request.GET.get('page', 1)
+    
     if category_slug == 'all':
         goods = Products.objects.all()
     else:
         goods = Products.objects.filter(category__slug=category_slug)
+        
+    paginator = Paginator(goods, 6)    
+    current_page = paginator.page(int(page))
     
     categories = Categories.objects.all()  
     
@@ -17,8 +24,9 @@ def catalog(request, category_slug):
     
     context = {
         "categories": categories,
-        "goods": goods,
+        "goods": current_page,
         "is_empty": is_empty,  # Флаг для шаблона
+        "slug_url": category_slug, #Пагинация
     }
     
     return render(request, 'goods/catalog.html', context)
