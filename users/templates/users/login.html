@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Авторизация{% endblock title %}
+
+{% block style_css %}
+    <link rel="stylesheet" href="{% static "deps/css/users/login.css" %}">
+{% endblock style_css %}
+
+{% block content %}
+<div class="container">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Вход в аккаунт</h2>
+            <p>Введите свои данные для входа</p>
+        </div>
+        
+        <form>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username" placeholder="Имя пользователя">
+                <label for="username">Имя пользователя</label>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input type="password" class="form-control" id="password" placeholder="Пароль">
+                <label for="password">Пароль</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-auth mb-3">Войти</button>
+            
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Запомнить меня</label>
+                </div>
+                <a href="#" class="text-decoration-none">Забыли пароль?</a>
+            </div>
+            
+            <div class="auth-footer">
+                Ещё нет аккаунта? <a href="{% url 'users:registration' %}">Зарегистрируйтесь</a>
+            </div>
+            
+            <div class="social-auth">
+                <p>Или войдите через</p>
+                <div class="social-buttons">
+                    <a href="#" class="social-btn google-btn">
+                        <img src="{% static 'deps/icons/google.svg' %}" alt="Google">
+                    </a>
+                    <a href="https://t.me/raiserror" class="social-btn telegram-btn">
+                        <img src="{% static 'deps/icons/telegram.svg' %}" alt="Telegram">
+                    </a>
+                    <a href="https://github.com/raiserror" class="social-btn github-btn">
+                        <img src="{% static 'deps/icons/github.svg' %}" alt="GitHub">
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Анимация элементов при загрузке
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach((input, index) => {
+            input.style.transitionDelay = `${index * 0.1}s`;
+        });
+        
+        // Плавное появление кнопки
+        const btn = document.querySelector('.btn-auth');
+        btn.style.transitionDelay = `${inputs.length * 0.1 + 0.1}s`;
+    });
+</script>
+{% endblock scripts %}

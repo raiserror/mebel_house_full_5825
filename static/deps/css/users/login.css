@@ -1,0 +1,127 @@
+.auth-container {
+    max-width: 400px;
+    margin: 5rem auto;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    background: white;
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h2 {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.form-floating label {
+    color: #95a5a6;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid #ecf0f1;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-weight: 500;
+    background: linear-gradient(135deg, #142220, #2c3e50);
+    border: none;
+    transition: all 0.3s;
+}
+
+.btn-auth:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.auth-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: #142220;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.auth-footer a:hover {
+    color: #142220;
+    text-decoration: underline;
+}
+
+.social-auth {
+    margin-top: 2rem;
+    border-top: 1px solid #ecf0f1;
+    padding-top: 1.5rem;
+}
+
+.social-auth p {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ecf0f1;
+    transition: all 0.3s;
+}
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.google-btn { background-color: #ea1111ff; }
+.telegram-btn { background-color: #6fc0ff; }
+.github-btn { background-color: #333; }
+
+.social-btn img {
+    width: 18px;
+    height: 18px;
+}

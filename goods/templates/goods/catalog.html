@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% load goods_tags %}
 
@@ -126,30 +126,33 @@
                                 <i class="bi bi-arrow-left me-2"></i>Вернуться в каталог
                             </a>
                         </div>
-                    {% endif %}            
+                    {% endif %}  
+
+                    <!-- Pagination -->
+                    {% if goods %}
+                        <nav aria-label="Page navigation" class="mt-5">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item {% if not goods.has_previous %}disabled{% endif %}">
+                                    <a class="page-link" href="
+                                    {% if goods.has_previous %}?{% change_params page=goods.previous_page_number %}{% else %}#{% endif %}">
+                                        <i class="bi bi-chevron-left"></i></a>
+                                </li>
+                                {% for page in goods.paginator.page_range %}
+                                {% if page >= goods.number|add:-2 and page <= goods.number|add:2 %}
+                                    <li class="page-item">
+                                        <a class="page-link {% if goods.number == page %}active{% endif %}" href="?{% change_params page=page %}">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                                {% endfor %}
+                                <li class="page-item {% if not goods.has_next %}disabled{% endif %}">
+                                    <a class="page-link" href="
+                                    {% if goods.has_next %}?{% change_params page=goods.next_page_number %}{% else %}#{% endif %}">
+                                        <i class="bi bi-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    {% endif %}          
                 </div>
-            <!-- Pagination -->
-            <nav aria-label="Page navigation" class="mt-5">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item {% if not goods.has_previous %}disabled{% endif %}">
-                        <a class="page-link" href="
-                        {% if goods.has_previous %}?{% change_params page=goods.previous_page_number %}{% else %}#{% endif %}">
-                            <i class="bi bi-chevron-left"></i></a>
-                    </li>
-                    {% for page in goods.paginator.page_range %}
-                    {% if page >= goods.number|add:-2 and page <= goods.number|add:2 %}
-                        <li class="page-item">
-                            <a class="page-link {% if goods.number == page %}active{% endif %}" href="?{% change_params page=page %}">{{ page }}</a>
-                        </li>
-                    {% endif %}
-                    {% endfor %}
-                    <li class="page-item {% if not goods.has_next %}disabled{% endif %}">
-                        <a class="page-link" href="
-                        {% if goods.has_next %}?{% change_params page=goods.next_page_number %}{% else %}#{% endif %}">
-                            <i class="bi bi-chevron-right"></i></a>
-                    </li>
-                </ul>
-            </nav>
         </div>
         
         <!-- Floating Cart Button -->

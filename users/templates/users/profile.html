@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Профиль пользователя{% endblock title %}
+
+{% block style_css %}
+<link rel="stylesheet" href="{% static 'deps/css/users/profile.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+{% endblock style_css %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="py-4">
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <!-- Profile Section -->
+                <div class="profile-card bg-white">
+                    <div class="row g-0">
+                        <!-- User Info -->
+                        <div class="col-lg-5 p-4">
+                            <h3 class="text-center mb-4">Мой профиль</h3>
+                            <form>
+                                <div class="avatar-container">
+                                    <img src="{% static 'deps/images/baseavatar.jpg' %}" 
+                                         class="avatar-img" 
+                                         alt="Аватар пользователя">
+                                    <div class="avatar-upload">
+                                        <i class="bi bi-camera-fill"></i>
+                                        <input type="file" class="d-none" id="avatarUpload" accept="image/*">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="firstName" class="form-label">Имя</label>
+                                    <input type="text" class="form-control" id="firstName" 
+                                           placeholder="Введите ваше имя" value="Иван">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="lastName" class="form-label">Фамилия</label>
+                                    <input type="text" class="form-control" id="lastName" 
+                                           placeholder="Введите вашу фамилию" value="Иванов">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Имя пользователя</label>
+                                    <input type="text" class="form-control" id="username" 
+                                           placeholder="Введите имя пользователя" value="ivanov">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" 
+                                           placeholder="Введите ваш email" value="ivanov@example.com">
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-save w-100">
+                                    Сохранить изменения
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Cart Section -->
+                        <div class="col-lg-7 p-4 border-start">
+                            <h3 class="text-center mb-4">Моя корзина</h3>
+                            
+                            <div class="card mb-3">
+                                <div class="card-header bg-light">
+                                    <h5 class="card-title mb-0">Товары в корзине</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item cart-item">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-2">
+                                                <img src="{% static 'deps/images/goods/set of tea table and two chairs.jpg' %}" 
+                                                     class="product-img" 
+                                                     alt="Комплект стол и стулья">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6 class="mb-1">Комплект стол и три стула</h6>
+                                                <small class="text-muted">Артикул: FUR-256</small>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <button class="btn btn-outline-secondary" type="button">-</button>
+                                                    <input type="text" class="form-control text-center" value="1">
+                                                    <button class="btn btn-outline-secondary" type="button">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 text-end">
+                                                <strong>255.00 $</strong>
+                                            </div>
+                                            <div class="col-md-1 text-end">
+                                                <button class="btn btn-link text-danger">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="card-footer">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">Итого: <strong>255.00 $</strong></h5>
+                                        <a href="" class="btn btn-dark">
+                                            Оформить заказ
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Orders Section -->
+                <div class="profile-card bg-white p-4">
+                    <h3 class="text-center mb-4">История заказов</h3>
+                    
+                    <div class="accordion" id="ordersAccordion">
+                        <!-- Order 1 -->
+                        <div class="order-card">
+                            <div class="order-header" id="headingOne" data-bs-toggle="collapse" 
+                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">Заказ №256</h5>
+                                        <small class="text-muted">15 августа 2025 14:12</small>
+                                    </div>
+                                    <div>
+                                        <span class="order-status status-processing">В обработке</span>
+                                        <i class="bi bi-chevron-down ms-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" 
+                                 data-bs-parent="#ordersAccordion">
+                                <div class="p-3">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Товар</th>
+                                                <th>Количество</th>
+                                                <th>Цена</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="text-dark text-decoration-none">
+                                                        Комплект стол и три стула
+                                                    </a>
+                                                </td>
+                                                <td>1</td>
+                                                <td>255.00 $</td>
+                                                <td>255.00 $</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-between border-top pt-3">
+                                        <h5>Итого:</h5>
+                                        <h5>255.00 $</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Order 2 -->
+                        <div class="order-card">
+                            <div class="order-header collapsed" id="headingTwo" data-bs-toggle="collapse" 
+                                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">Заказ №248</h5>
+                                        <small class="text-muted">05 августа 2025 11:28</small>
+                                    </div>
+                                    <div>
+                                        <span class="order-status status-completed">Получен</span>
+                                        <i class="bi bi-chevron-down ms-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" 
+                                 data-bs-parent="#ordersAccordion">
+                                <div class="p-3">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Товар</th>
+                                                <th>Количество</th>
+                                                <th>Цена</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="text-decoration-none">
+                                                        Стул офисный
+                                                    </a>
+                                                </td>
+                                                <td>2</td>
+                                                <td>30.00 $</td>
+                                                <td>60.00 $</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-between border-top pt-3">
+                                        <h5>Итого:</h5>
+                                        <h5>60.00 $</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Avatar upload
+    document.querySelector('.avatar-upload').addEventListener('click', function() {
+        document.getElementById('avatarUpload').click();
+    });
+    
+    document.getElementById('avatarUpload').addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.querySelector('.avatar-img').src = event.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+    
+    // Quantity controls
+    document.querySelectorAll('.btn-outline-secondary').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentNode.querySelector('input');
+            let value = parseInt(input.value);
+            
+            if (this.textContent === '-') {
+                if (value > 1) input.value = value - 1;
+            } else {
+                input.value = value + 1;
+            }
+        });
+    });
+</script>
+{% endblock scripts %}
