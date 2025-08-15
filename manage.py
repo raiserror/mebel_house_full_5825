@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+import io
 import os
 import sys
 
+if sys.stdout.encoding != 'UTF-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def main():
     """Run administrative tasks."""
