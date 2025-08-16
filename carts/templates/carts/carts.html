@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Корзина{% endblock title %}
+{% block style_css %}
+    <link rel="stylesheet" href="{% static "deps/css/carts/carts.css" %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+{% endblock style_css %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="py-4">
+    <div class="container cart-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="bg-white p-4 mb-4 rounded-3 shadow-sm">
+                    <h3 class="text-center mb-4 fw-bold">Ваша корзина</h3>
+                    
+                    <!-- Cart Items -->
+                    <div id="cart-items-container">
+                        <!-- Item 1 -->
+                        <div class="card mb-3 border-0 shadow-sm cart-item">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title mb-0">
+                                    <i class="bi bi-box-seam me-2"></i>
+                                    Набор: <strong>Чайный столик и три стула</strong>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <!-- Product Image -->
+                                    <div class="col-md-2 text-center">
+                                        <img src="{% static 'deps/images/goods/set of tea table and two chairs.jpg' %}" 
+                                             class="thumbnail" 
+                                             alt="Чайный столик и три стула"
+                                             data-bs-toggle="modal" 
+                                             data-bs-target="#imageModal">
+                                    </div>
+                                    
+                                    <!-- Quantity Controls -->
+                                    <div class="col-md-3">
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-2">Кол-во:</span>
+                                            <div class="input-group quantity-control">
+                                                <button class="btn btn-outline-secondary decrement" type="button">
+                                                    <i class="bi bi-dash"></i>
+                                                </button>
+                                                <input type="text" class="form-control text-center" value="1" readonly>
+                                                <button class="btn btn-outline-secondary increment" type="button">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Price -->
+                                    <div class="col-md-2 text-center">
+                                        <p class="mb-0">Цена: <span class="text-primary">100.00 $</span></p>
+                                    </div>
+                                    
+                                    <!-- Total -->
+                                    <div class="col-md-3 text-center">
+                                        <p class="mb-0">Сумма: <strong class="text-success">100.00 $</strong></p>
+                                    </div>
+                                    
+                                    <!-- Remove Button -->
+                                    <div class="col-md-2 text-center">
+                                        <button class="btn btn-outline-danger btn-sm remove-from-cart">
+                                            <i class="bi bi-trash-fill"></i> Удалить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="card mb-3 border-0 shadow-sm cart-item">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title mb-0">
+                                    <i class="bi bi-box-seam me-2"></i>
+                                    Кресло: <strong>"Премиум Люкс"</strong>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <!-- Product Image -->
+                                    <div class="col-md-2 text-center">
+                                        <img src="{% static 'deps/images/goods/armchair.jpg' %}" 
+                                             class="thumbnail" 
+                                             alt="Кресло Премиум Люкс"
+                                             data-bs-toggle="modal" 
+                                             data-bs-target="#imageModal2">
+                                    </div>
+                                    
+                                    <!-- Quantity Controls -->
+                                    <div class="col-md-3">
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-2">Кол-во:</span>
+                                            <div class="input-group quantity-control">
+                                                <button class="btn btn-outline-secondary decrement" type="button">
+                                                    <i class="bi bi-dash"></i>
+                                                </button>
+                                                <input type="text" class="form-control text-center" value="2" readonly>
+                                                <button class="btn btn-outline-secondary increment" type="button">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Price -->
+                                    <div class="col-md-2 text-center">
+                                        <p class="mb-0">Цена: <span class="text-primary">250.00 $</span></p>
+                                    </div>
+                                    
+                                    <!-- Total -->
+                                    <div class="col-md-3 text-center">
+                                        <p class="mb-0">Сумма: <strong class="text-success">500.00 $</strong></p>
+                                    </div>
+                                    
+                                    <!-- Remove Button -->
+                                    <div class="col-md-2 text-center">
+                                        <button class="btn btn-outline-danger btn-sm remove-from-cart">
+                                            <i class="bi bi-trash-fill"></i> Удалить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart Summary -->
+                    <div class="card border-0 shadow-sm mt-4 summary-card">
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5><i class="bi bi-info-circle me-2"></i>Информация о заказе</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Бесплатная доставка от 500 $</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Гарантия возврата 14 дней</li>
+                                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Оплата при получении</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Товары (3 шт):</span>
+                                        <strong>600.00 $</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Доставка:</span>
+                                        <strong class="text-success">Бесплатно</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span>Итого:</span>
+                                        <h4 class="mb-0 text-primary">600.00 $</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Checkout Button -->
+                    <div class="d-grid gap-2 mt-4">
+                        <a href="../orders/create_order.html" class="btn btn-primary btn-lg py-3">
+                            <i class="bi bi-bag-check me-2"></i>Оформить заказ
+                        </a>
+                        <a href="../goods/catalog.html" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Продолжить покупки
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Image Modals -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Чайный столик и три стула</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{% static 'deps/images/goods/set of tea table and two chairs.jpg' %}" 
+                    class="img-fluid rounded-3" 
+                    alt="Чайный столик и три стула">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imageModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Кресло "Премиум Люкс"</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{% static 'deps/images/goods/armchair.jpg' %}" 
+                    class="img-fluid rounded-3" 
+                    alt="Кресло Премиум Люкс">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Quantity controls
+        document.querySelectorAll('.increment, .decrement').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.closest('.input-group').querySelector('input');
+                let value = parseInt(input.value);
+                const price = parseFloat(this.closest('.cart-item').querySelector('.text-primary').textContent.replace('$', ''));
+                const totalElement = this.closest('.cart-item').querySelector('.text-success');
+                
+                if (this.classList.contains('increment')) {
+                    input.value = value + 1;
+                } else if (this.classList.contains('decrement') && value > 1) {
+                    input.value = value - 1;
+                }
+                
+                // Update item total
+                const newValue = parseInt(input.value);
+                const itemTotal = (price * newValue).toFixed(2);
+                totalElement.textContent = itemTotal + ' $';
+                
+                updateCartTotal();
+            });
+        });
+        
+        // Remove item from cart
+        document.querySelectorAll('.remove-from-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
+                    this.closest('.cart-item').remove();
+                    updateCartTotal();
+                }
+            });
+        });
+        
+        // Update cart total
+        function updateCartTotal() {
+            let total = 0;
+            let itemsCount = 0;
+            
+            document.querySelectorAll('.cart-item').forEach(item => {
+                const quantity = parseInt(item.querySelector('input').value);
+                const price = parseFloat(item.querySelector('.text-primary').textContent.replace('$', ''));
+                total += price * quantity;
+                itemsCount += quantity;
+            });
+            
+            // Update summary
+            if (document.querySelector('.cart-item')) {
+                document.querySelector('.summary-card .text-primary').textContent = total.toFixed(2) + ' $';
+                document.querySelector('.summary-card strong:first-child').textContent = total.toFixed(2) + ' $';
+                document.querySelector('.summary-card .mb-3 span:first-child').textContent = `Товары (${itemsCount} шт):`;
+            } else {
+                document.getElementById('cart-items-container').innerHTML = `
+                    <div class="alert alert-info text-center">
+                        <i class="bi bi-cart-x fs-1"></i>
+                        <h4 class="mt-3">Ваша корзина пуста</h4>
+                        <a href="../goods/catalog.html" class="btn btn-primary mt-3">
+                            <i class="bi bi-arrow-left me-2"></i>Вернуться к покупкам
+                        </a>
+                    </div>
+                `;
+                document.querySelector('.summary-card').style.display = 'none';
+                document.querySelector('.d-grid').style.display = 'none';
+            }
+        }
+    </script>
+{% endblock scripts %}
