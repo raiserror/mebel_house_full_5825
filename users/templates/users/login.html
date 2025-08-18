@@ -8,22 +8,27 @@
 
 {% block content %}
 <div class="auth-container">
-    <div class="auth-header">
+    <div class="auth-head mb-4 text-center">
         <h2>Вход в аккаунт</h2>
-        <p>Введите свои данные для входа</p>
+        <p class="text-muted">Введите свои данные для входа</p>
     </div>
     
-    <form>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="username" placeholder="Имя пользователя">
-            <label for="username">Имя пользователя</label>
+    <form action="{% url 'user:login' %}" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <p>
+            {{ form.non_field_errors }}
+        </p>
+        {% endif %}
+        <!-- Поле username -->
+        {% for item in form %}
+        <div class="mb-3">
+            <label for="{{ item.id_for_label }}" class="form-label">{{ item.label }}</label>
+            {{ item }}
         </div>
+        {% endfor %}
         
-        <div class="form-floating mb-4">
-            <input type="password" class="form-control" id="password" placeholder="Пароль">
-            <label for="password">Пароль</label>
-        </div>
-        
+        <!-- Кнопка входа -->
         <button type="submit" class="btn btn-primary btn-auth mb-3">Войти</button>
         
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -34,21 +39,21 @@
             <a href="#" class="text-decoration-none">Забыли пароль?</a>
         </div>
         
-        <div class="auth-footer">
-            Ещё нет аккаунта? <a href="{% url 'users:registration' %}">Зарегистрируйтесь</a>
+        <div class="auth-footer text-center mb-4">
+            Ещё нет аккаунта? <a href="{% url 'users:registration' %}" class="text-decoration-none">Зарегистрируйтесь</a>
         </div>
         
-        <div class="social-auth">
-            <p>Или войдите через</p>
-            <div class="social-buttons">
+        <div class="social-auth text-center">
+            <p class="text-muted mb-3">Или войдите через</p>
+            <div class="d-flex justify-content-center gap-3">
                 <a href="#" class="social-btn google-btn">
-                    <img src="{% static 'deps/icons/google.svg' %}" alt="Google">
+                    <img src="{% static 'deps/icons/google.svg' %}" alt="Google" width="24" height="24">
                 </a>
                 <a href="https://t.me/raiserror" class="social-btn telegram-btn">
-                    <img src="{% static 'deps/icons/telegram.svg' %}" alt="Telegram">
+                    <img src="{% static 'deps/icons/telegram.svg' %}" alt="Telegram" width="24" height="24">
                 </a>
                 <a href="https://github.com/raiserror" class="social-btn github-btn">
-                    <img src="{% static 'deps/icons/github.svg' %}" alt="GitHub">
+                    <img src="{% static 'deps/icons/github.svg' %}" alt="GitHub" width="24" height="24">
                 </a>
             </div>
         </div>

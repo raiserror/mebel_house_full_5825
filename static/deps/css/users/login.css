@@ -17,18 +17,18 @@
     }
 }
 
-.auth-header {
+.auth-head {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-.auth-header h2 {
+.auth-head h2 {
     font-weight: 600;
     color: #2c3e50;
     margin-bottom: 0.5rem;
 }
 
-.auth-header p {
+.auth-head p {
     color: #7f8c8d;
     font-size: 0.9rem;
 }

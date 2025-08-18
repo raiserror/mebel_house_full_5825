@@ -1,11 +1,28 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib import auth
+from django.urls import reverse
+from django.contrib import messages
 
-# Create your views here.
-def login(request): 
-    context = {
-        'title': 'Home - Авторизация',
-    }
-    return render(request, 'users/login.html', context)
+from users.forms import UserLoginForm
+
+def login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']  # Лучше использовать cleaned_data
+            password = form.cleaned_data['password']
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                auth.login(request, user)
+                messages.success(request, 'Вы успешно вошли в систему')
+                return HttpResponseRedirect(reverse('main:index'))
+        # Если форма не валидна или аутентификация не удалась
+        return render(request, 'users/login.html', {'form': form})
+    
+    # GET запрос
+    form = UserLoginForm()
+    return render(request, 'users/login.html', {'form': form})
 
 def registration(request): 
     context = {
