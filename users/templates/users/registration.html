@@ -153,12 +153,17 @@
         }
     });
     document.querySelectorAll('.close-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.target.closest('.alert-simple').style.opacity = '0';
-            setTimeout(() => {
-                e.target.closest('.alert-simple').remove();
-            }, 200);
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            console.log('Found close button:', btn);
+            btn.addEventListener('click', function() {
+                console.log('Button clicked!');
+                const alert = this.closest('.alert-simple');
+                console.log('Alert element:', alert);
+                if (alert) {
+                    alert.style.opacity = '0';
+                    setTimeout(() => alert.remove(), 200);
+                }
+            });
         });
-    });
 </script>
 {% endblock scripts %}

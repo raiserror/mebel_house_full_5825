@@ -3,8 +3,9 @@ from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
 def login(request):
     if request.method == 'POST':
@@ -15,7 +16,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user:
                 auth.login(request, user)
-                messages.success(request, 'Вы успешно вошли в систему')
+                messages.success(request, 'Вы успешно вошли в систему!')
                 return HttpResponseRedirect(reverse('main:index'))
             
         return render(request, 'users/login.html', {'form': form}) # Если форма не валидна или аутентификация не удалась
@@ -30,9 +31,10 @@ def registration(request):
             form.save()
             user = form.instance
             auth.login(request, user)
+            messages.success(request, 'Вы успешно зарегистрировались на сайте!')
             return HttpResponseRedirect(reverse('user:login'))
     else:
-        form = UserRegistrationForm() # GET запрос
+        form = UserRegistrationForm()
 
     context = {
         'title': 'Home - Регистрация',
@@ -40,12 +42,24 @@ def registration(request):
     }
     return render(request, 'users/registration.html', context)
 
+@login_required
 def profile(request): 
+    if request.method == 'POST':
+        form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Профиль успешно обновлен!')
+            return HttpResponseRedirect(reverse('user:profile'))
+    else:
+        form = ProfileForm(instance=request.user)
+        
     context = {
         'title': 'Home - Кабинет',
+        'form': form,
     }
     return render(request, 'users/profile.html', context)
 
+@login_required
 def logout(request): 
     auth.logout(request)
     return redirect(reverse('main:index'))
