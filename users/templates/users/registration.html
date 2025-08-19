@@ -20,37 +20,70 @@
                     </div>
                     
                     <div class="registration-body">
-                        <form method="post" action="{% url 'users:registration' %}">
+                        <form method="post" action="{% url 'users:registration' %}" method='post'>
                             {% csrf_token %}
                             
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="id_first_name" class="form-label">Имя*</label>
-                                    <input type="text" class="form-control" id="id_first_name" 
+                                    <input type="text" class="form-control" id="id_first_name"
+                                           value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
                                            name="first_name" placeholder="Введите ваше имя" required>
+                                    {% if form.first_name.errors %}
+                                    <div class="alert-simple error show">
+                                        <div>
+                                            {% for error in form.first_name.errors %}
+                                            <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <button type="button" class="close-btn" aria-label="Закрыть">&times;</button>
+                                    </div>
+                                    {% endif %}
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
                                     <label for="id_last_name" class="form-label">Фамилия*</label>
                                     <input type="text" class="form-control" id="id_last_name" 
+                                           value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
                                            name="last_name" placeholder="Введите вашу фамилию" required>
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
                                     <label for="id_username" class="form-label">Имя пользователя*</label>
                                     <input type="text" class="form-control" id="id_username" 
+                                           value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
                                            name="username" placeholder="Придумайте имя пользователя" required>
+                                    {% if form.username.errors %}
+                                    <div class="alert-simple error show">
+                                        {% for error in form.username.errors %}
+                                            {{ error }}
+                                            {% endfor %}
+                                        <button type="button" class="close-btn" aria-label="Закрыть">&times;</button>
+                                    </div>
+                                    {% endif %}
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
                                     <label for="id_email" class="form-label">Email*</label>
                                     <input type="email" class="form-control" id="id_email" 
+                                           value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
                                            name="email" placeholder="Введите ваш email" required>
+                                    {% if form.email.errors %}
+                                    <div class="alert-simple error show">
+                                        <div>
+                                            {% for error in form.email.errors %}
+                                            <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <button type="button" class="close-btn" aria-label="Закрыть">&times;</button>
+                                    </div>
+                                    {% endif %}
                                 </div>
                                 
                                 <div class="col-md-6 mb-3">
                                     <label for="id_password1" class="form-label">Пароль*</label>
-                                    <input type="password" class="form-control" id="id_password1" 
+                                    <input type="password" class="form-control" id="id_password1"
+                                           value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}" 
                                            name="password1" placeholder="Создайте пароль" required>
                                     <div class="password-info">
                                         <i class="bi bi-info-circle"></i> Пароль должен содержать не менее 8 символов
@@ -60,7 +93,16 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="id_password2" class="form-label">Подтверждение пароля*</label>
                                     <input type="password" class="form-control" id="id_password2" 
+                                           value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}"
                                            name="password2" placeholder="Повторите пароль" required>
+                                    {% if form.password2.errors %}
+                                    <div class="alert-simple error show">
+                                        {% for error in form.password2.errors %}
+                                            {{ error }}
+                                            {% endfor %}
+                                        <button type="button" class="close-btn" aria-label="Закрыть">&times;</button>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             
@@ -109,6 +151,14 @@
         } else {
             infoText.style.color = '#7f8c8d';
         }
+    });
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.target.closest('.alert-simple').style.opacity = '0';
+            setTimeout(() => {
+                e.target.closest('.alert-simple').remove();
+            }, 200);
+        });
     });
 </script>
 {% endblock scripts %}

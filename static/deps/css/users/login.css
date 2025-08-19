@@ -50,20 +50,6 @@
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
-.btn-auth {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 8px;
-    font-weight: 500;
-    background: linear-gradient(135deg, #142220, #2c3e50);
-    border: none;
-    transition: all 0.3s;
-}
-
-.btn-auth:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-}
 
 .auth-footer {
     margin-top: 1.5rem;
