@@ -53,7 +53,7 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link px-2" href="{% url 'carts:cart' %}">
+                            <a class="nav-link px-2" href="{% url "user:users_cart" %}">
                                 <i class="bi bi-cart3 me-1"></i>Корзина
                             </a>
                         </li>
@@ -117,6 +117,24 @@
 
     <!-- Скрипты --> 
     {% block scripts %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Принудительно устанавливаем высоту навбара
+        const navbar = document.querySelector('nav.navbar');
+        if (navbar) {
+            navbar.style.minHeight = '60px';
+            navbar.style.height = '60px';
+        }
+        
+        // Выравниваем все элементы по центру
+        const navElements = navbar.querySelectorAll('.navbar-brand, .nav-link, .navbar-toggler');
+        navElements.forEach(element => {
+            element.style.display = 'flex';
+            element.style.alignItems = 'center';
+            element.style.height = '100%';
+        });
+    });
+    </script>
     {% endblock scripts %}
 </body>
 </html>

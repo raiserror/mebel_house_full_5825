@@ -1,0 +1,136 @@
+<!-- Cart Section -->
+<div class="p-4">
+    <div class="card mb-3">
+        <div class="card-header bg-light">
+            <h5 class="card-title mb-0">Товары в корзине</h5>
+        </div>
+        
+        {% if carts %}
+        <ul class="list-group list-group-flush">
+            {% for cart in carts %}
+            <li class="list-group-item cart-item">
+                <div class="row align-items-center">
+                    <!-- Product Image -->
+                    <div class="col-md-2">
+                        <img src="{{ cart.product.image.url|default:'deps/images/goods/default.jpg' }}" 
+                             class="product-img" 
+                             alt="{{ cart.product.name }}"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#imageModal{{ cart.id }}">
+                    </div>
+                    
+                    <!-- Product Info -->
+                    <div class="col-md-3">
+                        <h6 class="mb-1">{{ cart.product.name }}</h6>
+                    </div>
+                    
+                    <!-- Quantity Controls -->
+                    <div class="col-md-3">
+                        <div class="input-group quantity-control">
+                            <button type="button" class="btn btn-outline-secondary decrement"
+                                    data-cart-id="{{ cart.id }}"
+                                    data-cart-change-url="{% url 'cart:cart_change' %}">
+                                {% csrf_token %}
+                                <i class="bi bi-dash"></i>
+                            </button>
+                            <input type="text" class="form-control text-center number" value="{{ cart.quantity }}" readonly>
+                            <button type="button" class="btn btn-outline-secondary increment"
+                                    data-cart-id="{{ cart.id }}"
+                                    data-cart-change-url="{% url 'cart:cart_change' %}">
+                                {% csrf_token %}
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Price -->
+                    <div class="col-md-2 text-end">
+                        <strong>{{ cart.products_price }} $</strong>
+                    </div>
+                    
+                    <!-- Remove Button -->
+                    <div class="col-md-2 text-end">
+                        <a href="{% url 'cart:cart_remove' %}" class="btn btn-link text-danger remove-from-cart"
+                           data-cart-id="{{ cart.id }}">
+                            {% csrf_token %}
+                            <i class="bi bi-trash-fill"></i> Удалить
+                        </a>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Image Modal for each product -->
+            <div class="modal fade" id="imageModal{{ cart.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ cart.product.name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="{{ cart.product.image.url|default:'deps/images/goods/default.jpg' }}" 
+                                class="img-fluid rounded-3" 
+                                alt="{{ cart.product.name }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <!-- Empty cart message -->
+        <div class="text-center py-5">
+            <div class="mb-3">
+                <i class="bi bi-cart-x text-muted" style="font-size: 4rem;"></i>
+            </div>
+            <h5 class="text-muted">Ваша корзина пуста</h5>
+            <p class="text-muted">Добавьте товары, чтобы оформить заказ</p>
+        </div>
+        {% endif %}
+        
+        <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Итого: <strong>{{ carts.total_price|default:0 }} $</strong></h5>
+                
+                {% if carts %}
+                <!-- Button when cart has items -->
+                <a href="{% url 'orders:create_order' %}" class="btn btn-success">
+                    <i class="bi bi-check-circle-fill me-2"></i>Оформить заказ
+                </a>
+                {% else %}
+                <!-- Button when cart is empty - with popup -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#emptyCartModal">
+                    <i class="bi bi-check-circle-fill me-2"></i>Оформить заказ
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Empty Cart Modal -->
+<div class="modal fade" id="emptyCartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-center w-100">
+                    <i class="bi bi-info-circle text-warning me-2"></i>Внимание
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-3">
+                    <i class="bi bi-cart-plus text-warning" style="font-size: 3rem;"></i>
+                </div>
+                <h5>Корзина пуста</h5>
+                <p class="text-muted">Пожалуйста, добавьте товары в корзину перед оформлением заказа</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <a href="{% url 'goods:search' %}" class="btn btn-primary">
+                    <i class="bi bi-arrow-left me-2"></i>Перейти в каталог
+                </a>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>

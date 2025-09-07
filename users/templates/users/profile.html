@@ -97,50 +97,8 @@
                         
                         <!-- Cart Section -->
                         <div class="col-lg-7 p-4 border-start">
-                            <h3 class="text-center mb-4">Моя корзина</h3>
-                            
-                            <div class="card mb-3">
-                                <div class="card-header bg-light">
-                                    <h5 class="card-title mb-0">Товары в корзине</h5>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item cart-item">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-2">
-                                                <img src="{% static 'deps/images/goods/set of tea table and two chairs.jpg' %}" 
-                                                     class="product-img" 
-                                                     alt="Комплект стол и стулья">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <h6 class="mb-1">Комплект стол и три стула</h6>
-                                                <small class="text-muted">Артикул: FUR-256</small>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="input-group">
-                                                    <button class="btn btn-outline-secondary" type="button">-</button>
-                                                    <input type="text" class="form-control text-center" value="1">
-                                                    <button class="btn btn-outline-secondary" type="button">+</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 text-end">
-                                                <strong>255.00 $</strong>
-                                            </div>
-                                            <div class="col-md-1 text-end">
-                                                <button class="btn btn-link text-danger">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="card-footer">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="mb-0">Итого: <strong>255.00 $</strong></h5>
-                                        <a href="" class="btn btn-dark">
-                                            Оформить заказ
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="modal-body">
+                                {% include "carts/includes/included_cart.html" %}
                             </div>
                         </div>
                     </div>

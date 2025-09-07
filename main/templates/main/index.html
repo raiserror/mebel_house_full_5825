@@ -24,32 +24,45 @@
     <!-- Основной контент -->
     <main class="py-4">
         <div class="container">
-            <!-- Кнопки каталога и корзины -->
-            <div class="catalog-btn">
-                <div class="dropdown">
-                    <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-grid-fill me-1"></i>Каталог
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        {% for category in categories %}
-                            <li><a class="dropdown-item" href="{% url "catalog:index" category.slug %}"><i class="bi bi-collection me-2"></i>{{category.name}}</a></li>
-                        {% endfor %}
-                    </ul>
+            <!-- Fixed кнопки -->
+            <div class="fixed-buttons" style="position: fixed; top: 80px; left: 20px; z-index: 1000;">
+                <div class="d-flex align-items-start gap-1">
+                    <!-- Кнопка каталога -->
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-grid-fill me-1"></i>Каталог
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            {% for category in categories %}
+                                <li><a class="dropdown-item" href="{% url "catalog:index" category.slug %}"><i class="bi bi-collection me-2"></i>{{category.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <!-- Кнопка корзины -->
+                    <div>
+                        <button type="button" 
+                                class="btn btn-dark position-relative" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#cartModal">
+                            <i class="bi bi-cart3"></i>
+                            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {% if carts.total_quantity %}{{ carts.total_quantity }}{% else %}0{% endif %}
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="cart-btn ms-3">  <!-- Добавляем отступ слева (margin-start) -->
-                <button type="button" 
-                        class="btn btn-dark position-relative" 
-                        onclick="window.location.href='carts/cart.html'"
-                        data-bs-toggle="modal" 
-                        data-bs-target="#cartModal">
-                    <i class="bi bi-cart3"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-badge">
-                        1
-                    </span>
-                </button>
+
+            <!-- Модальное окно -->
+            <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-body">
+                        {% include "carts/includes/included_cart.html" %}
+                    </div>
+                </div>
             </div>
-            
+                
             <!-- Преимущества -->
             <div class="row text-center mb-5">
                 <div class="col-md-4 mb-4">
@@ -122,7 +135,6 @@
     </main>
 {% endblock content %}
 
-
 {% block scripts %}
   <!-- Скрипты -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -155,4 +167,24 @@
         // Пример: установить количество товаров в корзине
         updateCartCount(3);
     </script>
+
+    <script>
+    // Полностью пересоздаем модальное окно
+    document.addEventListener('DOMContentLoaded', function() {
+        // Удаляем старый обработчик
+        $('#cartModal').off('show.bs.modal');
+        
+        // Инициализируем заново
+        var cartModal = new bootstrap.Modal(document.getElementById('cartModal'), {
+            backdrop: true,
+            keyboard: true
+        });
+        
+        // Обработчик открытия
+        document.querySelector('[data-bs-target="#cartModal"]').addEventListener('click', function() {
+            cartModal.show();
+        });
+    });
+    </script>
+
 {% endblock scripts %}

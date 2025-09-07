@@ -1,8 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
-def carts(request): 
-    context = {
-        'title': 'Home - Корзина',
-    }
-    return render(request, 'carts/carts.html', context)
+def cart_add(request, product_id): 
+    ...
+
+def cart_change(request, product_id): 
+    ...
+
+def cart_remove(request, product_id): 
+    ...
