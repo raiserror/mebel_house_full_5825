@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Контакты - Mebel House{% endblock title %}
+
+{% block style_css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+{% endblock style_css %}
+
+{% block content %}
+    <!-- Герой-секция -->
+    <section class="about-hero text-center text-white">
+        <div class="container py-5">
+            <h1 class="display-4 fw-bold mb-4">Контакты</h1>
+            <p class="lead">Свяжитесь с нами - мы всегда рады помочь!</p>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <main class="py-5">
+        <div class="container">
+            <!-- Контактная информация -->
+            <div class="row mb-5">
+                <div class="col-lg-6">
+                    <h2 class="mb-4"><i class="bi bi-geo-alt-fill me-2"></i>Наши контакты</h2>
+                    
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary p-3 rounded-circle me-3">
+                                    <i class="bi bi-geo text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Адрес</h5>
+                                    <p class="mb-0 text-muted">г. Москва, ул. Примерная, 123</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary p-3 rounded-circle me-3">
+                                    <i class="bi bi-telephone text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Телефон</h5>
+                                    <p class="mb-0 text-muted">+7 (123) 456-78-90</p>
+                                    <p class="mb-0 text-muted">+7 (987) 654-32-10</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary p-3 rounded-circle me-3">
+                                    <i class="bi bi-envelope text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Email</h5>
+                                    <p class="mb-0 text-muted">info@mebelhouse.ru</p>
+                                    <p class="mb-0 text-muted">sales@mebelhouse.ru</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary p-3 rounded-circle me-3">
+                                    <i class="bi bi-clock text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Часы работы</h5>
+                                    <p class="mb-0 text-muted">Пн-Пт: 9:00 - 21:00</p>
+                                    <p class="mb-0 text-muted">Сб-Вс: 10:00 - 20:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <h2 class="mb-4"><i class="bi bi-map-fill me-2"></i>Мы на карте</h2>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-0">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c494f1420d3a16906160d854c9cf70a4e9cd4953d25f34f414f82e0ba979269&amp;source=constructor" width="600" height="400" frameborder="0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма обратной связи -->
+            <div class="row bg-light rounded-3 p-4 mb-5">
+                <div class="col-12 text-center mb-4">
+                    <h2><i class="bi bi-chat-dots me-2"></i>Обратная связь</h2>
+                    <p class="lead">Остались вопросы? Напишите нам!</p>
+                </div>
+
+                <div class="col-md-8 mx-auto">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Имя</label>
+                                <input type="text" class="form-control" id="name" placeholder="Ваше имя" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="+7 (XXX) XXX-XX-XX">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Тема</label>
+                            <select class="form-select" id="subject">
+                                <option selected>Выберите тему</option>
+                                <option value="1">Вопрос о товаре</option>
+                                <option value="2">Доставка и оплата</option>
+                                <option value="3">Гарантия и возврат</option>
+                                <option value="4">Сотрудничество</option>
+                                <option value="5">Другое</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Сообщение</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Ваше сообщение..." required></textarea>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-send me-2"></i>Отправить сообщение
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Дополнительные контакты -->
+            <div class="row mb-5">
+                <div class="col-12 text-center mb-4">
+                    <h2><i class="bi bi-shop me-2"></i>Наши магазины</h2>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <div class="bg-primary rounded-circle mx-auto mb-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-building text-white fs-4"></i>
+                            </div>
+                            <h5>Центральный магазин</h5>
+                            <p class="text-muted">г. Москва, ул. Примерная, 123</p>
+                            <p class="text-muted">+7 (123) 456-78-90</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <div class="bg-primary rounded-circle mx-auto mb-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-building text-white fs-4"></i>
+                            </div>
+                            <h5>Магазин на западе</h5>
+                            <p class="text-muted">г. Москва, ул. Западная, 45б</p>
+                            <p class="text-muted">+7 (987) 654-32-10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <div class="bg-primary rounded-circle mx-auto mb-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-building text-white fs-4"></i>
+                            </div>
+                            <h5>Магазин на востоке</h5>
+                            <p class="text-muted">г. Москва, ул. Восточная, 78</p>
+                            <p class="text-muted">+7 (456) 123-78-90</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block scripts %}
+    <!-- Скрипты -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Анимация карточек
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.transition = 'all 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Маска для телефона
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            e.target.value = '+7 (' + x[2] + (x[3] ? ') ' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+        });
+    </script>
+{% endblock scripts %}

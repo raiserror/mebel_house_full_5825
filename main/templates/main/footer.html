@@ -1,52 +1,57 @@
-    <!-- Футер -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">Mebel House</h5>
-                    <p class="text-white-50">Лучшие товары по доступным ценам с быстрой доставкой по всей стране.</p>
-                </div>
-                
-                <div class="col-md-2 mb-4 mb-md-0">
-                    <h5 class="mb-3">Меню</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{% url "main:index" %}" class="text-decoration-none text-white">Главная</a></li>
-                        <li class="mb-2"><a href="../goods/catalog.html" class="text-decoration-none text-white">Каталог</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div class="col-md-2 mb-4 mb-md-0">
-                    <h5 class="mb-3">Информация</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Доставка и оплата</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Контакты</a></li>
-                        <li class="mb-2"><a href="{% url "main:about" %}" class="text-decoration-none text-white">О нас</a></li>
-                    </ul>
-                </div>
-                
-                <div class="col-md-4">
-                    <h5 class="mb-3">Контакты</h5>
-                    <ul class="list-unstyled text-white">
-                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> г. Москва, ул. Примерная, 123</li>
-                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +7 (123) 456-78-90</li>
-                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@mebelhouse.ru</li>
-                    </ul>
-                </div>
+{% load static %}
+<!-- Футер -->
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5 class="mb-3">Mebel House</h5>
+                <p class="text-white-50">Лучшие товары по доступным ценам с быстрой доставкой по всей стране.</p>
             </div>
             
-            <hr class="my-4 bg-secondary">
+            <div class="col-md-2 mb-4 mb-md-0">
+                <h5 class="mb-3">Меню</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url "main:index" %}" class="text-decoration-none text-white">Главная</a></li>
+                    <li class="mb-2"><a href="{% url "catalog:index" first_category.slug %}" class="text-decoration-none text-white">Каталог</a></li>
+                </ul>
+            </div>
             
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <div class="mb-3 mb-md-0">
-                    <span class="text-white-50">&copy; 2025 Mebel House. Все права защищены.</span>
-                </div>
-                
-                <div class="d-flex gap-3">
-                    <a href="#" class="text-white"><i class="bi bi-instagram fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="bi bi-telegram fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="bi bi-whatsapp fs-5"></i></a>
-                </div>
+            <div class="col-md-2 mb-4 mb-md-0">
+                <h5 class="mb-3">Поддержка</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'main:contacts' %}" class="text-decoration-none text-white">Контакты</a></li>
+                    <li class="mb-2"><a href="{% url "main:about" %}" class="text-decoration-none text-white">О нас</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-md-4">
+                <h5 class="mb-3">Контактная информация</h5>
+                <ul class="list-unstyled text-white">
+                    <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> г. Москва, ул. Примерная, 123</li>
+                    <li class="mb-2"><i class="bi bi-telephone me-2"></i> +7 (123) 456-78-90</li>
+                    <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@mebelhouse.ru</li>
+                </ul>
             </div>
         </div>
-    </footer>
+        
+        <hr class="my-4 bg-secondary">
+        
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="mb-3 mb-md-0">
+                <span class="text-white-50">&copy; 2025 Mebel House. Все права защищены.</span>
+            </div>
+            
+            <div class="d-flex gap-3">
+                <a href="https://stepik.org/users/714567549/" class="social-btn google-btn">
+                    <img src="{% static 'deps/icons/stepik-white.svg' %}" alt="Stepik" width="24" height="24">
+                </a>
+                <a href="https://t.me/raiserror" class="social-btn telegram-btn">
+                    <img src="{% static 'deps/icons/telegram-white.svg' %}" alt="Telegram" width="24" height="24">
+                </a>
+                <a href="https://github.com/raiserror" class="social-btn github-btn">
+                    <img src="{% static 'deps/icons/github.svg' %}" alt="GitHub" width="24" height="24">
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>

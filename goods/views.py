@@ -40,6 +40,7 @@ def catalog(request, category_slug=None):
         "goods": current_page,
         "is_empty": is_empty,  # Флаг для шаблона
         "slug_url": category_slug, #Пагинация
+        "first_category": categories.first(),
     }
     
     return render(request, 'goods/catalog.html', context)

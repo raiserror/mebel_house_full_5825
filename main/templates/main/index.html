@@ -12,7 +12,7 @@
         <div class="container">
             <h1 class="display-4 fw-bold mb-4">Добро пожаловать в Mebel House</h1>
             <p class="lead mb-5">Создайте уют в вашем доме с нашей эксклюзивной мебелью</p>
-            <a href="goods/catalog.html" class="btn btn-light btn-lg px-4 me-2">
+            <a href="{% url "catalog:index" first_category.slug %}" class="btn btn-outline-light btn-lg px-4">
                 <i class="bi bi-shop me-2"></i>В каталог
             </a>
             <a href="#" class="btn btn-outline-light btn-lg px-4">

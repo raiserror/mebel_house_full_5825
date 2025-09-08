@@ -1,14 +1,21 @@
 {% load static %}
 
-{% if messages %}
-    {% for message in messages %}
-        <div id="notification-{{ forloop.counter }}" 
-             class="position-fixed start-50 translate-middle-x z-3 alert fade show custom-shadow {% if message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% else %}alert-info{% endif %}" 
-             role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% else %}
-<div id="jq-notification" class="position-fixed start-50 translate-middle-x z-3 alert alert-success fade show custom-shadow" style="display: none;" role="alert">
+<div class="container-fluid p-0">
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div id="notification" class="position-fixed start-50 translate-middle-x z-3 alert alert-success fade show custom-shadow" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% if message.tags == 'warning' %}
+            <div id="notification" class="position-fixed start-50 translate-middle-x z-3 alert alert-danger fade show custom-shadow" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+    <div id="jq-notification" class="position-fixed start-50 translate-middle-x z-3 alert alert-success fade show custom-shadow" style="display: none;" role="alert">
+    </div>
+    {% endif %}
 </div>
-{% endif %}
