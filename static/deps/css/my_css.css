@@ -169,3 +169,17 @@ main {
 }
 
 
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;
+    min-height: 2.8em;
+    line-clamp: 2;         
+    
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-line-clamp: 2;
+}

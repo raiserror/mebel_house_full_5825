@@ -156,12 +156,24 @@
         </div>
         
         <!-- Floating Cart Button -->
-        <a href="../carts/cart.html" class="fixed-cart-btn btn btn-dark">
+        <a href="#" 
+        class="fixed-cart-btn btn btn-dark position-fixed"
+        style="bottom: 20px; right: 20px; z-index: 1030;"
+        data-bs-toggle="modal" 
+        data-bs-target="#cartModal">
             <i class="bi bi-cart3 fs-4"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                1
+                {% if carts.total_quantity %}{{ carts.total_quantity }}{% else %}0{% endif %}
             </span>
         </a>
+                <!-- Модальное окно -->
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-body">
+                    {% include "carts/includes/included_cart.html" %}
+                </div>
+            </div>
+        </div>
     </main>
 {% endblock content %}
 

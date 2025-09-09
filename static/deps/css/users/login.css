@@ -87,27 +87,34 @@
     gap: 12px;
 }
 
-.social-btn {
+.social-butn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ecf0f1;
     transition: all 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+            0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-.social-btn:hover {
+.social-butn:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.google-btn { background-color: #ea1111ff; }
-.telegram-btn { background-color: #6fc0ff; }
-.github-btn { background-color: #333; }
 
-.social-btn img {
+.social-butn img {
     width: 18px;
     height: 18px;
+}
+
+.social-butn img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: all 0.3s ease;
+}
+
+.social-butn:hover img {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
