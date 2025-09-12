@@ -107,9 +107,9 @@
                                                         {% endif %} 
                                                         <span class="price-new d-block">{{ product.sell_price }} $</span>
                                                     </div>
-                                                    <button class="btn btn-cart btn-dark">
+                                                    <a href='{% url "cart:cart_add" product.slug %}' class="btn btn-cart btn-dark">
                                                         <i class="bi bi-cart-plus fs-5"></i>
-                                                    </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -178,7 +178,6 @@
 {% endblock content %}
 
 {% block scripts %}
-  <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Add to cart functionality
@@ -190,10 +189,12 @@
                 const productCard = this.closest('.product-card');
                 const productName = productCard.querySelector('.card-title').textContent;
                 const productPrice = productCard.querySelector('.price-new').textContent;
+                const productUrl = this.getAttribute('href'); // Получаем URL из ссылки
                 
                 // Show success message
                 const toast = document.createElement('div');
                 toast.className = 'position-fixed bottom-0 end-0 p-3';
+                toast.style.zIndex = '9999';
                 toast.innerHTML = `
                     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
@@ -213,8 +214,25 @@
                     toast.remove();
                 }, 3000);
                 
-                // Here you would normally send the data to your backend
-                console.log('Added to cart:', productName, productPrice);
+                // Send AJAX request to add to cart
+                fetch(productUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Added to cart:', productName, productPrice);
+                        // Можно обновить счетчик корзины если нужно
+                        location.reload(); // Перезагрузить страницу для обновления счетчика
+                    } else {
+                        console.error('Failed to add to cart');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             });
         });
     </script>

@@ -60,9 +60,9 @@
                                         <input type="text" class="form-control text-center" value="1">
                                         <button class="btn btn-outline-secondary" type="button">+</button>
                                     </div>
-                                    <button class="btn btn-dark btn-add-to-cart">
+                                    <a href='{% url "cart:cart_add" product.slug %}' class="btn btn-dark btn-add-to-cart">
                                         <i class="bi bi-cart-plus me-2"></i>Добавить в корзину
-                                    </button>
+                                    </a>
                                 </div>
                                 
                                 <div class="border-top pt-3">
@@ -84,12 +84,77 @@
 {% endblock content %}
 
 {% block scripts %}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Quantity controls
-        document.querySelectorAll('.btn-outline-secondary').forEach(button => {
-            button.addEventListener('click', function() {
-                const input = this.parentNode.querySelector('input');
+        // Add to cart functionality
+        document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const productCard = this.closest('.product-card'); // Get product info
+                const productName = productCard.querySelector('.product-title').textContent;
+                const productPriceText = productCard.querySelector('.product-price').textContent;
+                
+                // Get quantity and calculate total price
+                const quantityInput = productCard.querySelector('input[type="text"]');
+                const quantity = parseInt(quantityInput.value);
+                
+                // Extract numeric price (remove $ symbol and convert to number)
+                const unitPrice = parseFloat(productPriceText.replace('$', ''));
+                const totalPrice = (unitPrice * quantity).toFixed(2);
+                
+                // Get the URL from data attribute or href
+                const addToCartUrl = this.getAttribute('data-url') || this.getAttribute('href');
+                
+                const toast = document.createElement('div'); // Show success message
+                toast.className = 'position-fixed bottom-0 end-0 p-3';
+                toast.style.zIndex = '9999';
+                toast.innerHTML = ` 
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Добавлено в корзину</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body"> 
+                            ${productName} в количестве (${quantity}) добавлен в вашу корзину за ${totalPrice}$
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000); // Remove toast after 3 seconds
+                
+                // Send AJAX request to backend
+                if (addToCartUrl) {
+                    fetch(addToCartUrl, {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Added to cart:', productName, quantity, totalPrice + '$');
+                            // Обновить счетчик корзины если нужно
+                            location.reload(); // Перезагрузить для обновления счетчика
+                        } else {
+                            console.error('Failed to add to cart');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }
+            });
+        });
+        
+        // Quantity buttons functionality
+        document.querySelectorAll('.input-group .btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
                 let value = parseInt(input.value);
                 
                 if (this.textContent === '+') {
@@ -98,19 +163,6 @@
                     input.value = value - 1;
                 }
             });
-        });
-        
-        // Add to cart functionality
-        document.querySelector('.btn-add-to-cart').addEventListener('click', function() {
-            const productName = document.querySelector('.product-title').textContent;
-            const productPrice = document.querySelector('.product-price').textContent;
-            const quantity = document.querySelector('input').value;
-            
-            // Here you would normally send the data to your backend
-            console.log('Added to cart:', productName, productPrice, 'Quantity:', quantity);
-            
-            // Show success message
-            alert(`${productName} добавлен в корзину!`);
         });
     </script>
 {% endblock scripts %}

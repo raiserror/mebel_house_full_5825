@@ -1,3 +1,8 @@
+{% load static %}
+{% load carts_tags %}
+
+{% user_carts request as full_carts %}
+
 <!-- Cart Section -->
 <div class="p-4">
     <div class="card mb-3">
@@ -5,18 +10,18 @@
             <h5 class="card-title mb-0">Товары в корзине</h5>
         </div>
         
-        {% if carts %}
+        {% if full_carts %}
         <ul class="list-group list-group-flush">
-            {% for cart in carts %}
+            {% for cart in full_carts %}
             <li class="list-group-item cart-item">
                 <div class="row align-items-center">
                     <!-- Product Image -->
                     <div class="col-md-2">
                         <img src="{{ cart.product.image.url|default:'deps/images/goods/default.jpg' }}" 
-                             class="product-img" 
-                             alt="{{ cart.product.name }}"
-                             data-bs-toggle="modal" 
-                             data-bs-target="#imageModal{{ cart.id }}">
+                            class="product-img" 
+                            alt="{{ cart.product.name }}"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#imageModal{{ cart.id }}">
                     </div>
                     
                     <!-- Product Info -->
@@ -29,14 +34,14 @@
                         <div class="input-group quantity-control">
                             <button type="button" class="btn btn-outline-secondary decrement"
                                     data-cart-id="{{ cart.id }}"
-                                    data-cart-change-url="{% url 'cart:cart_change' %}">
+                                    data-cart-change-url="#">
                                 {% csrf_token %}
                                 <i class="bi bi-dash"></i>
                             </button>
                             <input type="text" class="form-control text-center number" value="{{ cart.quantity }}" readonly>
                             <button type="button" class="btn btn-outline-secondary increment"
                                     data-cart-id="{{ cart.id }}"
-                                    data-cart-change-url="{% url 'cart:cart_change' %}">
+                                    data-cart-change-url="#">
                                 {% csrf_token %}
                                 <i class="bi bi-plus"></i>
                             </button>
@@ -50,8 +55,8 @@
                     
                     <!-- Remove Button -->
                     <div class="col-md-2 text-end">
-                        <a href="{% url 'cart:cart_remove' %}" class="btn btn-link text-danger remove-from-cart"
-                           data-cart-id="{{ cart.id }}">
+                        <a href="{% url 'cart:cart_remove' 1 %}" class="btn btn-link text-danger remove-from-cart"
+                        data-cart-id="{{ cart.id }}">
                             {% csrf_token %}
                             <i class="bi bi-trash-fill"></i> Удалить
                         </a>
@@ -90,11 +95,13 @@
         
         <div class="card-footer">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Итого: <strong>{{ carts.total_price|default:0 }} $</strong></h5>
-                
-                {% if carts %}
+                <h5 class="mb-0">Итого: <strong>{{ full_carts.total_price|default:0 }} $</strong></h5>
+                <a href="{% url "catalog:index" first_category.slug %}" class="btn btn-outline-secondary ms-auto me-3">
+                    <i class="bi bi-arrow-left me-2"></i>Перейти в каталог
+                </a>
+                {% if full_carts %}
                 <!-- Button when cart has items -->
-                <a href="{% url 'orders:create_order' %}" class="btn btn-success">
+                <a href="#" class="btn btn-success">
                     <i class="bi bi-check-circle-fill me-2"></i>Оформить заказ
                 </a>
                 {% else %}

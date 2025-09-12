@@ -25,7 +25,7 @@
 <main class="py-4">
     <div class="container">
         <!-- Fixed кнопки -->
-        <div class="fixed-buttons" style="position: fixed; top: 80px; left: 20px; z-index: 1000;">
+        <div class="fixed-buttons" style="position: fixed; top: 80px; left: 20px; z-index: 900;">
             <div class="d-flex align-items-start gap-1">
                 <!-- Кнопка каталога -->
                 <div class="dropdown">
@@ -54,11 +54,18 @@
             </div>
         </div>
 
-        <!-- Модальное окно -->
+        <!-- Модальное окно корзины - упрощенная версия -->
         <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <div class="modal-body">
-                    {% include "carts/includes/included_cart.html" %}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Корзина покупок</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <!-- Вставляем содержимое корзины без модальных окон -->
+                        {% include "carts/includes/included_cart.html" %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,24 +188,5 @@
         // Пример: установить количество товаров в корзине
         updateCartCount(3);
     </script>
-
-    <script>
-    // Полностью пересоздаем модальное окно
-    document.addEventListener('DOMContentLoaded', function() {
-        // Удаляем старый обработчик
-        $('#cartModal').off('show.bs.modal');
-        
-        // Инициализируем заново
-        var cartModal = new bootstrap.Modal(document.getElementById('cartModal'), {
-            backdrop: true,
-            keyboard: true
-        });
-        
-        // Обработчик открытия
-        document.querySelector('[data-bs-target="#cartModal"]').addEventListener('click', function() {
-            cartModal.show();
-        });
-    });
-    </script>
-
+    
 {% endblock scripts %}
